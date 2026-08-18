@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Engineering case study: DecentraMind Labs — DecentraMind OS, an AI-native platform for agent workflows, deterministic coordination, Agent OS execution, and optional Solana verification.">
+  <meta name="author" content="David Bonilla">
+  <meta name="theme-color" content="#07080c">
+  <title>DecentraMind Labs — Case Study | David Bonilla</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/case-study.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="logo" href="../../index.html" aria-label="David Bonilla — home">
+        <span class="logo-mark">DB</span>
+        <span class="logo-text">David Bonilla</span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="../../index.html#projects">Work</a>
+        <a href="../../index.html#experience">Experience</a>
+        <a href="../../index.html#stack">Stack</a>
+        <a href="../../index.html#contact" class="nav-cta">Contact</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="case-page">
+    <header class="case-hero">
+      <div class="container">
+        <a class="case-back" href="../../index.html#projects">← Back to Work</a>
+        <p class="case-kicker">Engineering Case Study</p>
+        <h1>DecentraMind Labs</h1>
+        <p class="case-role">Founder &amp; Blockchain / AI Architect · 2025 – Present</p>
+        <p class="case-lede">
+          AI-native platform infrastructure for structured workflows, agent execution, deterministic coordination, controlled tools, persistent state, and selective blockchain verification.
+        </p>
+        <div class="case-meta-row">
+          <span class="status-chip status-chip--active">Active Development</span>
+          <span class="status-chip status-chip--impl">DecentraMind OS</span>
+          <span class="status-chip status-chip--impl">Coordination Layer</span>
+          <span class="status-chip status-chip--beta">Agent Runtime · In Development</span>
+          <span class="detail-badge">Solana Devnet · Verification Path</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="container case-layout">
+      <article class="case-content">
+        <section class="case-section" id="overview">
+          <h2>Overview</h2>
+          <p>
+            <strong class="case-strong">DecentraMind Labs</strong> is building <strong class="case-strong">DecentraMind OS</strong> — an AI-native platform focused on the software infrastructure surrounding intelligent agents, rather than treating a model call as the application.
+          </p>
+          <p>
+            The current stack combines a Next.js application, Express backend, PostgreSQL/Prisma persistence, workspace and project workflows, a deterministic coordination layer, agent identity and Agent OS execution primitives, policy-gated tools, execution/audit records, and optional Solana verification paths.
+          </p>
+          <p class="eng-note">
+            Active engineering platform — not a completed autonomous-agent product.
+          </p>
+        </section>
+
+        <section class="case-section" id="problem">
+          <h2>Engineering Problem</h2>
+          <p>
+            Calling an LLM is not enough to create an autonomous software system. A usable agent platform also needs identity, authentication, state, workflow context, permissions, tool boundaries, execution state, error handling, scheduling, auditability, coordination, integrations, and — where useful — optional verification.
+          </p>
+          <p>
+            The challenge is assembling those layers so probabilistic model output can participate in real workflows without becoming unrestricted system authority.
+          </p>
+
+          <div class="arch-stack" aria-label="Platform problem stack">
+            <div class="arch-layer">
+              <span class="arch-layer__label">Interface</span>
+              <span class="arch-layer__body">User / Operator</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Product</span>
+              <span class="arch-layer__body">Application / Workspace</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Access</span>
+              <span class="arch-layer__body">Authentication + Workspace Context</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Coordination</span>
+              <span class="arch-layer__body">Coordination Layer</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Execution</span>
+              <span class="arch-layer__body">Agent Runtime</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer arch-layer--split">
+              <span class="arch-layer__label">Capabilities</span>
+              <ul class="arch-layer__chips">
+                <li>Model</li>
+                <li>Memory</li>
+                <li>Tools</li>
+                <li>Permissions</li>
+              </ul>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Records</span>
+              <span class="arch-layer__body">Execution Records</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Optional</span>
+              <span class="arch-layer__body">Verification Layer <span class="status-chip status-chip--testnet">Solana Devnet</span></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-section" id="role">
+          <h2>My Role</h2>
+          <p class="case-lead">Founder &amp; Blockchain / AI Architect</p>
+          <p>
+            I work across architecture and hands-on implementation: application/backend design, PostgreSQL/Prisma persistence, agent-runtime architecture, tool-policy systems, wallet verification flows, coordination infrastructure, implementation planning, code review, and product development.
+          </p>
+          <p class="eng-note">
+            Contributions are labeled explicitly below. This is not a claim that every code path was solely authored by me.
+          </p>
+        </section>
+
+        <section class="case-section" id="architecture">
+          <h2>System Architecture</h2>
+          <p>
+            <strong class="case-strong">DecentraMind OS</strong> is layered so application workflows, coordination, agent execution, persistent state, and optional verification remain separable concerns.
+          </p>
+
+          <div class="arch-stack" aria-label="DecentraMind OS system architecture">
+            <div class="arch-layer">
+              <span class="arch-layer__label">Application / Workspace <span class="status-chip status-chip--impl">Implemented</span></span>
+              <span class="arch-layer__body">Next.js / React / TypeScript · workspaces, projects, tasks, approvals</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Backend <span class="status-chip status-chip--impl">Implemented</span></span>
+              <span class="arch-layer__body">Express API</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Persistent State <span class="status-chip status-chip--impl">Implemented</span></span>
+              <span class="arch-layer__body">PostgreSQL / Prisma</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Coordination Layer <span class="status-chip status-chip--impl">Implemented</span></span>
+              <span class="arch-layer__body">Deterministic coordination signals · activity / audit records</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer arch-layer--split">
+              <span class="arch-layer__label">Agent Runtime <span class="status-chip status-chip--beta">Active Development</span></span>
+              <ul class="arch-layer__chips">
+                <li>Agent identity</li>
+                <li>Runs</li>
+                <li>Steps</li>
+                <li>Tool invocations</li>
+                <li>Policy-gated tools</li>
+              </ul>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Model Provider Boundary <span class="status-chip status-chip--beta">Active Development</span></span>
+              <span class="arch-layer__body">Optional OpenAI · environment-gated real provider</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Wallet / Identity + Optional Verification <span class="status-chip status-chip--testnet">Devnet Path</span></span>
+              <span class="arch-layer__body">Solana wallet linking · optional Solana devnet proof anchoring</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-section" id="model-agent">
+          <h2>Model vs Agent Architecture</h2>
+          <p>
+            Inference is one capability among several — not the definition of an agent.
+          </p>
+          <ul class="signal-grid" aria-label="Model versus agent separation">
+            <li><strong class="case-strong">Model</strong> — inference / reasoning</li>
+            <li><strong class="case-strong">Agent Runtime</strong> — execution coordination</li>
+            <li><strong class="case-strong">Memory / State</strong> — persistent context outside the model</li>
+            <li><strong class="case-strong">Tools</strong> — controlled external capabilities</li>
+            <li><strong class="case-strong">Permissions</strong> — deterministic execution boundaries</li>
+            <li><strong class="case-strong">Execution Records</strong> — auditability</li>
+          </ul>
+          <p>
+            A provider boundary with optional OpenAI integration exists; real provider use is environment-gated. Dry-run / placeholder paths remain part of active development.
+          </p>
+          <p class="eng-note">
+            <span class="status-chip status-chip--arch">Roadmap / Product Direction</span>
+            Local / self-hosted model providers are product direction — not an implemented provider in the current runtime.
+          </p>
+        </section>
+
+        <section class="case-section" id="auth">
+          <h2>Authentication + Wallet Verification</h2>
+          <p>
+            Primary application authentication is <strong class="case-strong">JWT / session account authentication</strong> through the Express backend.
+          </p>
+          <p>
+            Separately, <strong class="case-strong">Solana challenge–response wallet linking</strong> verifies wallet ownership: an authenticated user requests a challenge, the wallet signs, the backend verifies with Ed25519, and the wallet is linked to that account.
+          </p>
+
+          <div class="arch-stack" aria-label="Wallet linking flow">
+            <div class="arch-layer"><span class="arch-layer__body">Authenticated User</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Request Wallet Challenge</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Backend Challenge</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Wallet Signs</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Ed25519 Verification</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Wallet Ownership Confirmed</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Wallet Linked to User</span></div>
+          </div>
+
+          <ul class="evidence-list">
+            <li>
+              <span class="evidence-list__item">Solana challenge–response verification for wallet linking</span>
+              <span class="status-chip status-chip--impl">Implemented</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Solana wallet-login authentication as primary login</span>
+              <span class="status-chip status-chip--beta">Not Production-Complete</span>
+            </li>
+          </ul>
+          <p class="eng-note">
+            Application login and wallet ownership verification are separate concerns. Production Solana wallet-login remains incomplete.
+          </p>
+        </section>
+
+        <section class="case-section case-section--emphasis" id="coordination">
+          <div class="section-label-row">
+            <h2>Coordination Layer</h2>
+            <span class="status-chip status-chip--impl">Implemented</span>
+          </div>
+          <p>
+            The coordination layer is a deterministic component of DecentraMind OS that produces structured coordination signals from workflow state changes — not generative model output.
+          </p>
+          <p>
+            Current implementation supports typed signal payloads (type, title, summary, severity, optional recommended action, related task/approval context), emission from task and project lifecycle events including milestone/approval paths, and activity-feed presentation for auditability.
+          </p>
+
+          <div class="arch-stack" aria-label="Coordination layer flow">
+            <div class="arch-layer"><span class="arch-layer__body">Workflow State Change</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Backend Event</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Coordination Signal</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Structured Payload</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Activity / Decision Surface</span></div>
+          </div>
+
+          <p class="eng-note">
+            This layer does not require an LLM. Future LLM / agent enrichment remains
+            <span class="status-chip status-chip--arch">Roadmap / Active Development</span>.
+            Internal implementation components currently retain MindOS naming while the broader product architecture is presented publicly as DecentraMind OS.
+          </p>
+        </section>
+
+        <section class="case-section" id="agent-os">
+          <div class="section-label-row">
+            <h2>Agent OS / Runtime</h2>
+            <span class="status-chip status-chip--beta">Active Development</span>
+          </div>
+          <p>
+            The runtime turns probabilistic model suggestions into observable software execution behind deterministic boundaries. Persisted primitives include agent runs, ordered steps, and tool invocations with allow/deny outcomes, correlated to execution/audit logging.
+          </p>
+          <ul class="evidence-list">
+            <li>
+              <span class="evidence-list__item">AgentOSRun · AgentOSStep · AgentOSToolInvocation records</span>
+              <span class="status-chip status-chip--impl">Implemented</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Bounded execution loop, timeouts, dry-run / gated LLM behavior</span>
+              <span class="status-chip status-chip--beta">Active Development</span>
+            </li>
+          </ul>
+
+          <div class="arch-stack" aria-label="Agent OS execution flow">
+            <div class="arch-layer"><span class="arch-layer__body">Agent Run</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Ordered Steps</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Tool Invocation</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Policy Check</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Result / Error</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Persisted Execution Record</span></div>
+          </div>
+          <p class="eng-note">
+            Not presented as production-complete autonomous execution.
+          </p>
+        </section>
+
+        <section class="case-section" id="tools">
+          <div class="section-label-row">
+            <h2>Tool Execution</h2>
+            <span class="status-chip status-chip--impl">Implemented</span>
+          </div>
+          <p>
+            <strong class="case-strong">Probabilistic model output should not equal unrestricted system authority.</strong>
+            The runtime exposes approved tools through a whitelist registry, Zod contracts, and deny-by-default policy checks — with allow/deny outcomes recorded on each invocation.
+          </p>
+
+          <div class="arch-stack" aria-label="Tool execution flow">
+            <div class="arch-layer"><span class="arch-layer__body">Agent Runtime</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Tool Request</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Policy / Permission Check</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Whitelist Registry</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Approved Tool</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Result</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Execution Record</span></div>
+          </div>
+        </section>
+
+        <section class="case-section" id="memory">
+          <div class="section-label-row">
+            <h2>Memory / Persistent State</h2>
+            <span class="status-chip status-chip--beta">Agent Memory · Active Development</span>
+          </div>
+          <p>
+            Agent memory structures are persisted alongside agent profile metadata in PostgreSQL/Prisma, separating model inference from application-owned agent state. Not a mature standalone memory product; “user-owned memory” is not claimed as completed.
+          </p>
+        </section>
+
+        <section class="case-section" id="scheduling">
+          <div class="section-label-row">
+            <h2>Scheduling / Heartbeat</h2>
+            <span class="status-chip status-chip--beta">Active Development</span>
+          </div>
+          <p>
+            Runtime heartbeat/state infrastructure exists. Task-queue and scheduling infrastructure is early-stage — not a production scheduler fleet.
+          </p>
+
+          <div class="arch-stack" aria-label="Heartbeat scheduling concept">
+            <div class="arch-layer"><span class="arch-layer__body">Trigger / Heartbeat</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Runtime State</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Agent Run</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Tool Execution</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Execution Record</span></div>
+          </div>
+        </section>
+
+        <section class="case-section" id="verification">
+          <div class="section-label-row">
+            <h2>Optional Verification Layer</h2>
+            <span class="status-chip status-chip--testnet">Solana Devnet · Active Development</span>
+          </div>
+          <p>
+            AI execution remains <strong class="case-strong">off-chain</strong>. When configured, an execution digest can be optionally anchored on Solana <strong class="case-strong">devnet</strong> as a verification/proof layer — not as the compute substrate.
+          </p>
+
+          <div class="arch-stack" aria-label="Proof anchoring flow">
+            <div class="arch-layer"><span class="arch-layer__body">Off-Chain Execution</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Execution Digest</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Cryptographic Hash / Digest</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Solana Devnet Memo Anchor</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Verification Record</span></div>
+          </div>
+          <p class="eng-note">
+            Not mainnet production verification; not blanket on-chain verification of every action.
+          </p>
+        </section>
+
+        <section class="case-section" id="named-agents">
+          <div class="section-label-row">
+            <h2>Named Agent Surfaces</h2>
+            <span class="status-chip status-chip--beta">Active Development</span>
+          </div>
+          <p>
+            Domain-specific applications explored on DecentraMind OS include Care Orchestrator, Autonomous CFO, and Crypto Alpha Assistant — application surfaces and CFO simulation/runtime workflows, not production autonomous agents.
+          </p>
+          <p>
+            They demonstrate shared runtime, state, tools, permissions, coordination, and execution records across different domains.
+          </p>
+          <ul class="signal-grid" aria-label="Named agent surfaces">
+            <li>Care Orchestrator</li>
+            <li>Autonomous CFO</li>
+            <li>Crypto Alpha Assistant</li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="decisions">
+          <h2>Engineering Decisions</h2>
+          <dl class="decision-list">
+            <div class="decision-item">
+              <dt>PostgreSQL + Prisma</dt>
+              <dd>Persistent relational state across users, workspaces, projects, agents, runs, steps, tool invocations, and platform records.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>Next.js + Express separation</dt>
+              <dd>Frontend/product surface separated from backend platform and runtime services.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>Deterministic coordination first</dt>
+              <dd>Structured coordination signals operate without LLM generation, providing a stable software foundation before agent-generated enrichment.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>Policy-gated tools</dt>
+              <dd>Model output is separated from privileged execution through whitelisted capabilities and explicit policy checks.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>Model provider boundary</dt>
+              <dd>The runtime separates model access from agent state and execution, reducing coupling to a single provider and leaving room for future model options. Optional OpenAI integration is environment-gated; local/self-hosted providers remain roadmap.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>Off-chain AI + selective blockchain verification</dt>
+              <dd>AI workloads remain off-chain; blockchain is used only where proof/verification adds value.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>Solana devnet</dt>
+              <dd>Optional low-cost development path for digest anchoring — not a claim of mainnet production verification.</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="case-section" id="security">
+          <h2>Security &amp; Reliability</h2>
+          <p>
+            Core principle: <strong class="case-strong">probabilistic model output should not equal unrestricted system authority.</strong>
+          </p>
+          <ul class="eng-list">
+            <li>JWT / session authentication</li>
+            <li>Workspace access checks</li>
+            <li>Solana challenge–response wallet linking</li>
+            <li>Deny-by-default tool policy · whitelist registry · Zod contracts</li>
+            <li>Allow/deny outcomes and execution records persisted</li>
+            <li>Coordination activity / audit logs</li>
+            <li>Bounded runtime concepts (timeouts, cancellation, dry-run paths)</li>
+          </ul>
+          <p class="eng-note">
+            Not a claim of complete production IAM or mature production agent isolation.
+          </p>
+        </section>
+
+        <section class="case-section" id="built">
+          <h2>What I Personally Built</h2>
+          <ul class="evidence-list">
+            <li>
+              <span class="evidence-list__item">Application architecture for DecentraMind OS</span>
+              <span class="status-chip status-chip--arch">Architecture / Implementation</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Next.js + Express platform structure</span>
+              <span class="status-chip status-chip--impl">Implementation / Architecture</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">PostgreSQL / Prisma persistence model</span>
+              <span class="status-chip status-chip--impl">Implementation</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Coordination layer infrastructure</span>
+              <span class="status-chip status-chip--impl">Implementation / Architecture</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Agent OS runtime model</span>
+              <span class="status-chip status-chip--beta">Architecture / Active Development</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Runs / steps / tool-invocation model</span>
+              <span class="status-chip status-chip--impl">Implementation / Architecture</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Policy-gated tool registry</span>
+              <span class="status-chip status-chip--impl">Implementation / Contribution</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Wallet-link verification architecture</span>
+              <span class="status-chip status-chip--impl">Implementation / Architecture</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Solana devnet proof anchoring architecture</span>
+              <span class="status-chip status-chip--testnet">Active Development / Architecture</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Technical planning, implementation review, and product development</span>
+              <span class="status-chip status-chip--arch">Leadership</span>
+            </li>
+          </ul>
+          <p class="eng-note">
+            Labels reflect repository-grounded contributions. Sole authorship is not claimed for every path.
+          </p>
+        </section>
+
+        <section class="case-section" id="technology">
+          <h2>Technology</h2>
+          <ul class="case-tech" aria-label="Verified technologies">
+            <li>Next.js</li>
+            <li>React</li>
+            <li>TypeScript</li>
+            <li>Node.js</li>
+            <li>Express</li>
+            <li>PostgreSQL</li>
+            <li>Prisma</li>
+            <li>JWT / Session Auth</li>
+            <li>Zod</li>
+            <li>Solana</li>
+            <li>OpenAI Integration</li>
+            <li>Jest</li>
+          </ul>
+          <p class="eng-note">
+            Verified in the current DecentraMind OS implementation. EIP-191, Solidity, and Ethers.js are not listed as DecentraMind core-platform claims here.
+          </p>
+        </section>
+
+        <section class="case-section" id="status">
+          <h2>Current Status</h2>
+          <p class="case-status">Active Development · 2025 – Present</p>
+
+          <div class="domain-grid">
+            <div class="domain-block">
+              <h3 class="case-h3">Implemented</h3>
+              <ul class="eng-list">
+                <li>Next.js application</li>
+                <li>Express API</li>
+                <li>PostgreSQL / Prisma persistence</li>
+                <li>Account / session authentication</li>
+                <li>Agent OS runs / steps / tool-invocation records</li>
+                <li>Policy-gated whitelist tool registry</li>
+                <li>Execution / audit logging</li>
+                <li>Deterministic coordination signals</li>
+                <li>Solana wallet linking verification</li>
+              </ul>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Active Development</h3>
+              <ul class="eng-list">
+                <li>Broader Agent OS execution loop</li>
+                <li>Permissions / catalogs</li>
+                <li>Agent memory structures</li>
+                <li>Heartbeat / scheduling infrastructure</li>
+                <li>Named agent workflows</li>
+                <li>Optional OpenAI-backed execution</li>
+                <li>Solana devnet proof anchoring</li>
+              </ul>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Roadmap / Product Direction</h3>
+              <ul class="eng-list">
+                <li>Production autonomous agents</li>
+                <li>Broader multi-agent coordination</li>
+                <li>Local / self-hosted model providers</li>
+                <li>Production decentralized proof infrastructure</li>
+                <li>Production wallet-login architecture</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <aside class="case-toc" aria-label="On this page">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#problem">Engineering Problem</a></li>
+          <li><a href="#role">My Role</a></li>
+          <li><a href="#architecture">System Architecture</a></li>
+          <li><a href="#model-agent">Model vs Agent</a></li>
+          <li><a href="#auth">Auth + Wallet</a></li>
+          <li><a href="#coordination">Coordination</a></li>
+          <li><a href="#agent-os">Agent OS</a></li>
+          <li><a href="#tools">Tool Execution</a></li>
+          <li><a href="#memory">Memory</a></li>
+          <li><a href="#scheduling">Scheduling</a></li>
+          <li><a href="#verification">Verification</a></li>
+          <li><a href="#named-agents">Named Agents</a></li>
+          <li><a href="#decisions">Decisions</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#built">What I Built</a></li>
+          <li><a href="#technology">Technology</a></li>
+          <li><a href="#status">Status</a></li>
+        </ol>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> David Bonilla. All rights reserved.</p>
+      <a href="../../index.html">Home</a>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>

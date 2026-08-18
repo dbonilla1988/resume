@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Engineering case study: SureStack Technology Group — digital-asset intelligence infrastructure, Prime Intelligence frontend, and Ethereum Sepolia smart-contract systems.">
+  <meta name="author" content="David Bonilla">
+  <meta name="theme-color" content="#07080c">
+  <title>SureStack Technology Group — Case Study | David Bonilla</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/case-study.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="logo" href="../../index.html" aria-label="David Bonilla — home">
+        <span class="logo-mark">DB</span>
+        <span class="logo-text">David Bonilla</span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="../../index.html#projects">Work</a>
+        <a href="../../index.html#experience">Experience</a>
+        <a href="../../index.html#stack">Stack</a>
+        <a href="../../index.html#contact" class="nav-cta">Contact</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="case-page">
+    <header class="case-hero">
+      <div class="container">
+        <a class="case-back" href="../../index.html#projects">← Back to Work</a>
+        <p class="case-kicker">Engineering Case Study</p>
+        <h1>SureStack Technology Group</h1>
+        <p class="case-role">Head of Development · 2025 – Present</p>
+        <p class="case-lede">
+          Digital-asset intelligence infrastructure spanning blockchain data, smart-contract systems, wallet/contract/token analysis, market context, and AI-assisted risk interpretation — delivered through the Prime Intelligence application surface.
+        </p>
+        <div class="case-meta-row">
+          <span class="status-chip status-chip--active">Active Development</span>
+          <span class="status-chip status-chip--beta">Prime Intelligence · Beta</span>
+          <span class="detail-badge">Ethereum Sepolia / Testnet</span>
+          <span class="case-badge">Digital Assets</span>
+          <span class="case-badge">Risk Intelligence</span>
+        </div>
+        <div class="case-actions">
+          <a class="btn btn-secondary btn-sm ext-link" href="https://surestack.tech/" target="_blank" rel="noopener noreferrer">Product Website →</a>
+          <a class="btn btn-secondary btn-sm ext-link" href="https://demo.surestack.tech/" target="_blank" rel="noopener noreferrer">Product Demo →</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container case-layout">
+      <article class="case-content">
+        <section class="case-section" id="overview">
+          <h2>Overview</h2>
+          <p>
+            SureStack is a digital-asset intelligence platform that combines blockchain data, smart-contract infrastructure, wallet/contract/token analysis, market intelligence, and AI-assisted interpretation into a unified risk-analysis experience.
+          </p>
+          <p>
+            On-chain protocol components have been developed and tested on <strong class="case-strong">Ethereum Sepolia</strong>. This case study does not claim mainnet production deployment for that smart-contract infrastructure.
+          </p>
+        </section>
+
+        <section class="case-section" id="problem">
+          <h2>Engineering Problem</h2>
+          <p>
+            Digital-asset risk information is fragmented across blockchain explorers, wallet state, contract bytecode and events, token activity, approvals, market feeds, and external intelligence providers.
+          </p>
+          <p>
+            The engineering challenge is turning those heterogeneous signals into a coherent application architecture — one that lets users investigate digital-asset exposure, inspect contract and token context, and interpret risk without stitching together half a dozen tools by hand.
+          </p>
+        </section>
+
+        <section class="case-section" id="role">
+          <h2>My Role</h2>
+          <p class="case-lead">Head of Development</p>
+          <p>
+            I work across product architecture and implementation — translating digital-asset risk requirements into smart-contract, backend, analytics, and application systems. That includes architecture decisions, implementation planning, engineering review, and technical coordination across workstreams.
+          </p>
+          <p>
+            <strong class="case-strong">I personally built the Prime Intelligence frontend</strong> — the application interface that exposes SureStack’s digital-asset intelligence workflows.
+          </p>
+          <p class="eng-note">
+            This role spans architecture, implementation, engineering review, and technical coordination. Individual contributions are identified explicitly throughout this case study.
+          </p>
+        </section>
+
+        <section class="case-section case-section--emphasis" id="prime-intelligence">
+          <div class="section-label-row">
+            <h2>Prime Intelligence</h2>
+            <span class="status-chip status-chip--built">Personally Built · Frontend</span>
+            <span class="status-chip status-chip--beta">Beta</span>
+          </div>
+          <p>
+            Prime Intelligence is SureStack’s digital-asset intelligence application surface. I built the frontend that presents investigation workflows over wallet, contract, token, market, and risk signals — turning fragmented blockchain and market data into a usable analysis interface.
+          </p>
+          <p>
+            The product surface is organized around engineering workflows rather than marketing features:
+          </p>
+          <ul class="signal-grid" aria-label="Prime Intelligence workflows">
+            <li>Wallet analysis</li>
+            <li>Contract analysis</li>
+            <li>Token analysis</li>
+            <li>Approval / spender-risk inspection</li>
+            <li>Market intelligence</li>
+            <li>Wallet health / history</li>
+            <li>Scenario analysis</li>
+            <li>Alerts</li>
+            <li>AI-assisted risk interpretation</li>
+          </ul>
+          <p class="eng-note">
+            These workflows are currently in beta and continue to evolve alongside the platform.
+          </p>
+
+          <figure class="product-evidence" id="prime-intelligence-screenshot">
+            <div class="product-evidence__labels" aria-label="Evidence labels">
+              <span class="status-chip status-chip--impl">Real Product UI</span>
+              <span class="status-chip status-chip--active">Prime Intelligence</span>
+              <span class="status-chip status-chip--beta">Beta</span>
+            </div>
+            <div class="product-evidence__frame">
+              <img
+                class="product-evidence__img"
+                src="./assets/surestack-prime-intelligence-dashboard.jpeg"
+                alt="SureStack Prime Intelligence dashboard showing digital-asset intelligence and risk analysis workflows"
+                decoding="async"
+              >
+            </div>
+            <figcaption class="product-evidence__caption">
+              <strong>Prime Intelligence — digital-asset intelligence interface</strong>
+              <span>Frontend implementation by David Bonilla · SureStack Technology Group</span>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="case-section" id="architecture">
+          <h2>System Architecture</h2>
+          <p>
+            The system is layered so the application UI can consume intelligence services without coupling every workflow directly to a provider API or on-chain call path.
+          </p>
+
+          <div class="arch-stack" aria-label="Layered system architecture">
+            <div class="arch-layer">
+              <span class="arch-layer__label">Application</span>
+              <span class="arch-layer__body">Prime Intelligence UI</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Services</span>
+              <span class="arch-layer__body">Application / Intelligence Services</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer arch-layer--split">
+              <span class="arch-layer__label">Analysis Domains</span>
+              <ul class="arch-layer__chips">
+                <li>Wallet</li>
+                <li>Contract</li>
+                <li>Token</li>
+                <li>Market</li>
+                <li>Risk</li>
+                <li>AI Analysis</li>
+              </ul>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Data</span>
+              <span class="arch-layer__body">Blockchain + external intelligence providers</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">On-chain</span>
+              <span class="arch-layer__body">Ethereum smart-contract infrastructure <span class="detail-badge">Sepolia / Testnet</span></span>
+            </div>
+          </div>
+
+          <h3 class="case-h3">External integrations</h3>
+          <p>
+            Provider integrations support subsets of the intelligence surface — not every provider powers every function:
+          </p>
+          <ul class="case-tech" aria-label="External providers">
+            <li>Alchemy</li>
+            <li>Infura</li>
+            <li>Etherscan</li>
+            <li>Chainlink</li>
+            <li>Birdeye</li>
+            <li>LunarCrush</li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="contracts">
+          <h2>Smart-Contract Infrastructure</h2>
+          <p>
+            SureStack’s on-chain work centers on digital-asset and governance-oriented Solidity components. Development and testing target <strong class="case-strong">Ethereum Sepolia</strong>. Nothing in this section implies mainnet deployment.
+          </p>
+          <div class="status-legend" aria-hidden="true">
+            <span class="status-chip status-chip--testnet">Sepolia / Testnet</span>
+            <span class="status-chip status-chip--impl">Developed / Tested</span>
+            <span class="status-chip status-chip--arch">Architecture</span>
+          </div>
+          <ul class="evidence-list">
+            <li>
+              <span class="evidence-list__item">SST token architecture (ERC20Votes)</span>
+              <span class="status-chip status-chip--impl">Developed / Tested · Sepolia</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Staking infrastructure</span>
+              <span class="status-chip status-chip--impl">Developed / Tested · Sepolia</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Validator / consensus concepts</span>
+              <span class="status-chip status-chip--arch">Architecture</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Reward distribution and slashing mechanisms</span>
+              <span class="status-chip status-chip--impl">Developed / Tested · Sepolia</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Governor + Timelock governance</span>
+              <span class="status-chip status-chip--impl">Developed / Tested · Sepolia</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Policy management contracts</span>
+              <span class="status-chip status-chip--impl">Developed / Tested · Sepolia</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">OracleReader for external / on-chain intelligence inputs</span>
+              <span class="status-chip status-chip--impl">Developed / Tested · Sepolia</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">OpenZeppelin governance and security patterns</span>
+              <span class="status-chip status-chip--arch">Architecture Pattern</span>
+            </li>
+          </ul>
+          <p class="eng-note">
+            Labels reflect existing portfolio/project evidence for Sepolia development and testing. Exact per-contract deployment receipts can be cited once confirmed for public use.
+          </p>
+        </section>
+
+        <section class="case-section" id="deep-dive">
+          <h2>Engineering Deep Dive</h2>
+          <p>
+            Intelligence work is grouped by engineering domain. Surfaces marked beta remain in active development and should not be read as mature production infrastructure.
+          </p>
+
+          <div class="domain-grid">
+            <div class="domain-block">
+              <h3 class="case-h3">Blockchain Intelligence</h3>
+              <ul class="eng-list">
+                <li>Ingest and normalize on-chain context for investigation workflows.</li>
+                <li>Separate chain reads from application presentation and interpretation layers.</li>
+              </ul>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Wallet Intelligence</h3>
+              <ul class="eng-list">
+                <li>Wallet exposure and risk-oriented analysis surfaces.</li>
+                <li>Wallet health / history timeline presentation.</li>
+                <li>Hygiene-oriented recommendations grounded in observed wallet activity.</li>
+              </ul>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Contract / Token Analysis</h3>
+              <ul class="eng-list">
+                <li>Smart-contract analysis workflows.</li>
+                <li>Token analysis and exposure context.</li>
+                <li>Approval and spender-risk inspection.</li>
+                <li>Suspicious interaction review paths.</li>
+              </ul>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Market Intelligence</h3>
+              <ul class="eng-list">
+                <li>Market and volatility context alongside on-chain state.</li>
+                <li>Provider-backed market signals (for example Birdeye / LunarCrush where integrated).</li>
+              </ul>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Risk Interpretation</h3>
+              <ul class="eng-list">
+                <li>AI-assisted interpretation over assembled blockchain and market context.</li>
+                <li>Product surfaces for risk analysis and executive-style verdict presentation <span class="status-chip status-chip--beta">Beta</span></li>
+              </ul>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Monitoring / Alerts</h3>
+              <ul class="eng-list">
+                <li>Continuous intelligence monitoring paths.</li>
+                <li>Alert surfaces for notable wallet / interaction signals <span class="status-chip status-chip--beta">Beta</span></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-section" id="technology">
+          <h2>Technology</h2>
+          <ul class="case-tech" aria-label="Technologies">
+            <li>Solidity</li>
+            <li>Ethereum / EVM</li>
+            <li>OpenZeppelin</li>
+            <li>Ethers.js</li>
+            <li>TypeScript</li>
+            <li>Node.js</li>
+            <li>PostgreSQL</li>
+            <li>Chainlink</li>
+            <li>Etherscan</li>
+            <li>Infura</li>
+            <li>Alchemy</li>
+            <li>LunarCrush</li>
+            <li>Birdeye</li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="decisions">
+          <h2>Engineering Decisions</h2>
+          <dl class="decision-list">
+            <div class="decision-item">
+              <dt>Ethereum / EVM</dt>
+              <dd>EVM tooling, contract standards, and ecosystem data availability fit digital-asset risk workflows that need both on-chain state and off-chain interpretation.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>Sepolia for development and testing</dt>
+              <dd>Smart-contract infrastructure is developed and validated on Ethereum Sepolia before any production network consideration — keeping testnet risk separate from mainnet assumptions.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>OpenZeppelin governance primitives</dt>
+              <dd>ERC20Votes, Governor, and Timelock patterns provide reviewed building blocks for token and governance architecture instead of bespoke primitives.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>Separate on-chain state from off-chain intelligence</dt>
+              <dd>Protocol state and analytics/interpretation layers stay distinct so UI workflows can evolve without coupling every risk view to a contract call path.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>Multiple blockchain and data providers</dt>
+              <dd>Different providers cover different signal classes (chain access, explorers, oracles, market context). Aggregation is intentional — not a claim that every provider serves every function.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>TypeScript across application services</dt>
+              <dd>Shared typing across frontend and service boundaries reduces interface drift as intelligence workflows expand.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>Blockchain + market context for risk analysis</dt>
+              <dd>On-chain structure alone is incomplete for exposure decisions; market and volatility context are part of the same investigation model.</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="case-section" id="security">
+          <h2>Security &amp; Reliability</h2>
+          <ul class="eng-list">
+            <li>OpenZeppelin contract patterns for token and governance components.</li>
+            <li>Testnet validation on Ethereum Sepolia before any production deployment assumptions.</li>
+            <li>Wallet approval / spender-risk analysis as a first-class investigation surface.</li>
+            <li>Separation of blockchain execution concerns from analytics and presentation layers.</li>
+            <li>Architecture review of blockchain and backend security assumptions during implementation planning.</li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="built">
+          <h2>What I Personally Built</h2>
+          <ul class="evidence-list">
+            <li>
+              <span class="evidence-list__item"><strong class="case-strong">Prime Intelligence frontend</strong> — application interface for SureStack digital-asset intelligence workflows</span>
+              <span class="status-chip status-chip--built">Personally Built</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Smart-contract infrastructure contributions (token, staking, governance, policy, OracleReader) on Ethereum Sepolia</span>
+              <span class="status-chip status-chip--impl">Contribution · Testnet</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Architecture decisions across application, intelligence, and on-chain layers</span>
+              <span class="status-chip status-chip--arch">Architecture</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Integration work connecting provider-backed signals into investigation workflows</span>
+              <span class="status-chip status-chip--impl">Contribution</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Technical coordination across smart-contract, backend, frontend, and analytics workstreams</span>
+              <span class="status-chip status-chip--arch">Leadership</span>
+            </li>
+          </ul>
+          <p class="eng-note">
+            Prime Intelligence exposes wallet, contract, and token intelligence workflows. Backend analytics components are credited separately from my frontend and architecture contributions.
+          </p>
+        </section>
+
+        <section class="case-section" id="status">
+          <h2>Current Status</h2>
+          <p class="case-status">Active Development · 2025 – Present</p>
+          <ul class="eng-list">
+            <li><span class="status-chip status-chip--beta">Beta</span> Prime Intelligence is in beta-stage development.</li>
+            <li><span class="status-chip status-chip--testnet">Testnet</span> Smart-contract infrastructure remains testnet-only.</li>
+            <li><span class="status-chip status-chip--active">Evolving</span> Application and intelligence capabilities continue to evolve.</li>
+          </ul>
+        </section>
+      </article>
+
+      <aside class="case-toc" aria-label="On this page">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#problem">Engineering Problem</a></li>
+          <li><a href="#role">My Role</a></li>
+          <li><a href="#prime-intelligence">Prime Intelligence</a></li>
+          <li><a href="#architecture">System Architecture</a></li>
+          <li><a href="#contracts">Smart Contracts</a></li>
+          <li><a href="#deep-dive">Deep Dive</a></li>
+          <li><a href="#technology">Technology</a></li>
+          <li><a href="#decisions">Decisions</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#built">What I Built</a></li>
+          <li><a href="#status">Status</a></li>
+        </ol>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> David Bonilla. All rights reserved.</p>
+      <a href="../../index.html">Home</a>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>

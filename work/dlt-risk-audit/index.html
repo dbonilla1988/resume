@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Independent smart-contract security analysis of OpenZeppelin ERC-20 components using Slither static analysis, documented findings, and institutional DLT risk context.">
+  <meta name="author" content="David Bonilla">
+  <meta name="theme-color" content="#07080c">
+  <title>Institutional DLT Risk Audit | David Bonilla</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/case-study.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="logo" href="../../index.html" aria-label="David Bonilla — home">
+        <span class="logo-mark">DB</span>
+        <span class="logo-text">David Bonilla</span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="../../index.html#projects">Work</a>
+        <a href="../../index.html#experience">Experience</a>
+        <a href="../../index.html#stack">Stack</a>
+        <a href="../../index.html#contact" class="nav-cta">Contact</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="case-page">
+    <header class="case-hero">
+      <div class="container">
+        <a class="case-back" href="../../index.html#projects">← Back to Work</a>
+        <p class="case-kicker">Engineering Case Study</p>
+        <h1>Institutional DLT Risk Audit</h1>
+        <p class="case-role">Smart Contract Security · DLT Risk Engineering</p>
+        <p class="case-lede">
+          Independent smart-contract security analysis examining implementation risks, static-analysis signals, and security controls on OpenZeppelin ERC-20 components in an institutional DLT research context.
+        </p>
+        <div class="case-meta-row">
+          <span class="status-chip status-chip--impl">Completed Engineering Project</span>
+          <span class="status-chip status-chip--impl">Public Source</span>
+          <span class="status-chip status-chip--impl">Security Analysis</span>
+          <span class="status-chip status-chip--arch">Independent Study</span>
+        </div>
+        <div class="case-actions">
+          <a class="btn btn-primary btn-sm ext-link" href="https://github.com/dbonilla1988/ubs-dlt-risk-audit" target="_blank" rel="noopener noreferrer">Source →</a>
+          <a class="btn btn-secondary btn-sm ext-link" href="https://github.com/dbonilla1988/ubs-dlt-risk-audit/blob/main/erc20-slither-report.md" target="_blank" rel="noopener noreferrer">View Audit →</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container case-layout">
+      <article class="case-content">
+        <section class="case-section" id="overview">
+          <h2>Overview</h2>
+          <p>
+            This project is a public documentation repository of <strong class="case-strong">Slither static-analysis reports</strong> and analyst notes covering OpenZeppelin’s <code>ERC20</code>, <code>ERC20Burnable</code>, and <code>ERC20Capped</code> contracts.
+          </p>
+          <p>
+            The work demonstrates a reproducible security-analysis workflow: compile with a pinned Solidity toolchain, run Slither human-summary output, review tool signals manually, and document severity-aware findings for institutional digital-asset risk discussions.
+          </p>
+          <p class="eng-note">
+            This was an <strong class="case-strong">independent engineering/security analysis</strong> and does not represent an audit commissioned, sponsored, approved, reviewed, or endorsed by UBS. The repository name reflects research context, not a commercial engagement.
+          </p>
+        </section>
+
+        <section class="case-section" id="problem">
+          <h2>Engineering / Security Problem</h2>
+          <p>
+            Token contracts sit at the center of institutional DLT tokenization and custody discussions. Even widely used reference implementations require structured review so that tool output, known ERC-20 design tradeoffs, and compiler/build assumptions are not confused with exploitable vulnerabilities.
+          </p>
+          <p>
+            The problem this project addresses is methodological: run deterministic static analysis on concrete ERC-20 components, separate <strong class="case-strong">tool signals</strong> from <strong class="case-strong">validated findings</strong>, and communicate residual risk clearly — without claiming a full third-party audit of a production bank system.
+          </p>
+        </section>
+
+        <section class="case-section" id="role">
+          <h2>My Role</h2>
+          <p class="case-lead">Smart Contract Security Engineering · Independent Analysis</p>
+          <p>
+            I personally performed the Slither static analyses, captured human-summary outputs, wrote the ERC-20 narrative report, and framed findings for institutional DLT risk discussion. The contracts under analysis are OpenZeppelin’s public ERC-20 implementations — not proprietary UBS systems and not original Solidity authored for this repository.
+          </p>
+          <p class="eng-note">
+            This case study does not claim professional auditor certification or employment/consulting work for UBS.
+          </p>
+        </section>
+
+        <section class="case-section" id="scope">
+          <h2>Analysis Scope</h2>
+          <p>
+            All contracts were sourced from <a class="ext-link" href="https://github.com/OpenZeppelin/openzeppelin-contracts" target="_blank" rel="noopener noreferrer">OpenZeppelin Contracts</a>. The public GitHub repository stores reports and documentation — not a Foundry/Hardhat application tree with custom business logic.
+          </p>
+          <div class="domain-grid">
+            <div class="domain-block">
+              <h3 class="case-h3">Contracts analyzed</h3>
+              <ul class="eng-list">
+                <li><code>ERC20.sol</code> — core token logic</li>
+                <li><code>ERC20Burnable.sol</code> — burn extension</li>
+                <li><code>ERC20Capped.sol</code> — supply-cap extension</li>
+              </ul>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Related units reviewed in reports</h3>
+              <ul class="eng-list">
+                <li><code>IERC20</code>, <code>IERC20Metadata</code></li>
+                <li><code>IERC6093</code>, <code>Context</code></li>
+                <li>Imported error interfaces surfaced by compilation</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-section" id="architecture">
+          <h2>Contract Architecture Under Review</h2>
+          <p>
+            The analysis targets the standard OpenZeppelin ERC-20 composition path rather than a custom institutional application stack.
+          </p>
+          <div class="arch-stack" aria-label="ERC-20 analysis architecture">
+            <div class="arch-layer">
+              <span class="arch-layer__label">Interfaces</span>
+              <span class="arch-layer__body">IERC20 · IERC20Metadata · IERC6093</span>
+            </div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Core</span>
+              <span class="arch-layer__body">ERC20 · Context</span>
+            </div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Extensions</span>
+              <span class="arch-layer__body">ERC20Burnable · ERC20Capped</span>
+            </div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Analysis artifact</span>
+              <span class="arch-layer__body">Slither human-summary + analyst notes (public repo)</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-section" id="methodology">
+          <h2>Security Methodology</h2>
+          <p>
+            Methods actually used in the repository and reproducible locally:
+          </p>
+          <ol class="method-flow">
+            <li>Scope selection of OpenZeppelin ERC-20 core and extensions</li>
+            <li>Pinned toolchain: Slither v0.11.3, solc 0.8.27 via solc-select, Foundry / forge used as part of the compilation environment invoked during Slither analysis</li>
+            <li>Slither <code>human-summary</code> static analysis per contract path</li>
+            <li>Manual review of tool signals vs known ERC-20 design behavior</li>
+            <li>Severity-aware documentation (no High/Medium/Low issues reported by Slither summaries)</li>
+            <li>Institutional risk commentary framing — without claiming regulatory certification</li>
+          </ol>
+          <p class="eng-note">
+            Static-analysis output was reviewed and contextualized. Tool signals were not automatically treated as exploitable vulnerabilities.
+          </p>
+        </section>
+
+        <section class="case-section" id="static-analysis">
+          <h2>Static Analysis Results</h2>
+          <p>
+            Committed Slither human-summary artifacts for <code>ERC20Burnable</code> and <code>ERC20Capped</code>, plus the ERC-20 narrative report, document the following severity counts:
+          </p>
+          <div class="stats-strip" aria-label="Slither severity counts">
+            <div class="stats-strip__item">
+              <span class="stats-strip__value">0</span>
+              <span class="stats-strip__label">High</span>
+            </div>
+            <div class="stats-strip__item">
+              <span class="stats-strip__value">0</span>
+              <span class="stats-strip__label">Medium</span>
+            </div>
+            <div class="stats-strip__item">
+              <span class="stats-strip__value">0</span>
+              <span class="stats-strip__label">Low</span>
+            </div>
+            <div class="stats-strip__item">
+              <span class="stats-strip__value">1</span>
+              <span class="stats-strip__label">Informational</span>
+            </div>
+          </div>
+          <p style="margin-top: 1rem;">
+            Across the Burnable/Capped summaries: no optimization findings, no assembly, and ERC-20 feature tables flag <strong class="case-strong">Approve Race Cond.</strong> as informational. Example Cap summary metrics from the committed report: 8 contracts in source files, 204 SLOC, 32 functions on <code>ERC20Capped</code>.
+          </p>
+          <p class="eng-note">
+            These counts were re-verified by re-running Slither human-summary on local OpenZeppelin <code>ERC20Capped.sol</code> (same 0 / 0 / 0 / 1 pattern). Absence of High/Medium/Low findings is not a proof of absolute security.
+          </p>
+        </section>
+
+        <section class="case-section" id="findings">
+          <h2>Findings</h2>
+          <p>
+            No Critical, High, Medium, or Low vulnerabilities were reported in the committed Slither summaries. The validated items below are informational / architectural observations.
+          </p>
+
+          <div class="finding-stack">
+            <article class="finding-card">
+              <div class="finding-card__head">
+                <h3 class="finding-card__title">ERC-20 <code>approve</code> race condition</h3>
+                <span class="status-chip sev-info">Informational</span>
+                <span class="status-chip status-chip--impl">Validated · Known design issue</span>
+              </div>
+              <dl>
+                <dt>Affected component</dt>
+                <dd>OpenZeppelin <code>ERC20</code> / Burnable / Capped analysis surface</dd>
+                <dt>Detection method</dt>
+                <dd>Slither human-summary (“Approve Race Cond.”) + analyst confirmation</dd>
+                <dt>Description</dt>
+                <dd>
+                  Standard ERC-20 <code>approve()</code> can be overwritten in a way that enables a classic allowance race if callers rely on raw approve transitions.
+                </dd>
+                <dt>Potential impact</dt>
+                <dd>Token-allowance front-running in poorly designed integrator flows — not unique to this analysis target.</dd>
+                <dt>Recommendation</dt>
+                <dd>Prefer <code>increaseAllowance()</code> / <code>decreaseAllowance()</code> (or equivalent safer patterns) in integrators. Documented as recommended mitigation in the narrative report.</dd>
+                <dt>Resolution status</dt>
+                <dd><strong class="case-strong">Recommended</strong> — not a custom-contract remediation in this repository (OpenZeppelin reference contracts were not forked/patched here).</dd>
+              </dl>
+            </article>
+
+            <article class="finding-card">
+              <div class="finding-card__head">
+                <h3 class="finding-card__title">Mixed Solidity pragma constraints across imports</h3>
+                <span class="status-chip sev-arch">Informational / Architectural</span>
+                <span class="status-chip status-chip--arch">Contextual observation</span>
+              </div>
+              <dl>
+                <dt>Affected component</dt>
+                <dd>Imported OZ units (<code>IERC20</code>, <code>IERC20Metadata</code>, <code>IERC6093</code>, <code>ERC20</code>, <code>Context</code>)</dd>
+                <dt>Detection method</dt>
+                <dd>Manual review of pragma ranges documented in the ERC-20 Slither narrative report</dd>
+                <dt>Description</dt>
+                <dd>
+                  Different minimum/caret pragma constraints appear across related interface and implementation files. The report notes this can increase audit complexity and build-environment sensitivity.
+                </dd>
+                <dt>Potential impact</dt>
+                <dd>Build reproducibility / governance hygiene concerns rather than an immediate exploit class.</dd>
+                <dt>Recommendation</dt>
+                <dd>Institutional integrations should pin compiler versions and treat pragma consistency as a governance control.</dd>
+                <dt>Resolution status</dt>
+                <dd><strong class="case-strong">Observed / documented</strong> — explicitly described as not an immediate security vulnerability.</dd>
+              </dl>
+            </article>
+          </div>
+        </section>
+
+        <section class="case-section" id="testing">
+          <h2>Testing</h2>
+          <p>
+            The public repository does <strong class="case-strong">not</strong> contain a Foundry/Hardhat test suite, fuzz tests, or invariant tests. Foundry appears in the documented toolchain because Slither’s analysis workflow invoked forge/solc compilation against the OpenZeppelin sources.
+          </p>
+          <p class="case-status">Testing · Not included in repository artifacts</p>
+          <p class="eng-note">
+            No fabricated test counts. Validation evidence is the committed Slither reports plus reproducible static-analysis re-runs.
+          </p>
+        </section>
+
+        <section class="case-section" id="remediation">
+          <h2>Remediation</h2>
+          <p>
+            No patched Solidity forks or before/after remediation commits exist in this repository.
+          </p>
+          <ul class="eng-list">
+            <li><strong class="case-strong">Approve race:</strong> mitigation recommended via safer allowance APIs — status <em>Recommended</em></li>
+            <li><strong class="case-strong">Pragma consistency:</strong> treated as documentation / governance observation — status <em>Observed</em></li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="institutional">
+          <h2>Institutional DLT Risk Lens</h2>
+          <p>
+            The repository frames ERC-20 static analysis in an institutional digital-asset context (tokenization / custody discussion). Supported technical themes from the work:
+          </p>
+          <ul class="eng-list">
+            <li>Deterministic analysis toolchain (pinned Slither / solc versions)</li>
+            <li>Privilege and minting posture surfaced by Slither feature tables (“No Minting” on analyzed extensions)</li>
+            <li>Allowance / approval integrity as an integrator risk domain</li>
+            <li>Compiler and build reproducibility as an operational control</li>
+          </ul>
+          <p class="eng-note">
+            This page does <strong class="case-strong">not</strong> claim FINMA, MiCA, Basel, or other regulatory compliance certification.
+          </p>
+        </section>
+
+        <section class="case-section" id="limitations">
+          <h2>Security Limitations</h2>
+          <ul class="eng-list">
+            <li>Independent engineering study — not commissioned by an institution</li>
+            <li>Limited to OpenZeppelin ERC-20 components named in the reports</li>
+            <li>No custom application contracts, deployment addresses, or production infrastructure review</li>
+            <li>Static analysis does not prove absence of vulnerabilities</li>
+            <li>No formal verification, economic attack simulation, or frontend/backend security assessment</li>
+            <li>Point-in-time analysis against the OpenZeppelin sources used during report generation</li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="built">
+          <h2>What I Personally Did</h2>
+          <div class="domain-grid">
+            <div class="domain-block">
+              <h3 class="case-h3">Slither static analysis <span class="status-chip status-chip--impl">Completed</span></h3>
+              <p>Ran and archived human-summary outputs for ERC-20 / Burnable / Capped.</p>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Finding validation <span class="status-chip status-chip--impl">Completed</span></h3>
+              <p>Separated informational tool signals from exploitable-vulnerability claims.</p>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Manual Solidity review notes <span class="status-chip status-chip--impl">Completed</span></h3>
+              <p>Documented pragma consistency and known approve-race design behavior.</p>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Security documentation <span class="status-chip status-chip--impl">Completed</span></h3>
+              <p>Published public report markdowns and project README on GitHub.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-section" id="technology">
+          <h2>Technology</h2>
+          <ul class="eng-list">
+            <li>Solidity (OpenZeppelin ERC-20 sources under analysis)</li>
+            <li>Slither v0.11.3</li>
+            <li>solc 0.8.27 (solc-select)</li>
+            <li>Foundry / forge (compile environment used by Slither)</li>
+            <li>Python 3.13.2</li>
+            <li>OpenZeppelin Contracts</li>
+            <li>Git / Markdown</li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="status">
+          <h2>Current Status</h2>
+          <p class="case-status">Completed Engineering Project · Independent Security Analysis · Public Source</p>
+          <div class="domain-grid">
+            <div class="domain-block">
+              <h3 class="case-h3">Available</h3>
+              <ul class="eng-list">
+                <li>Public GitHub repository</li>
+                <li>Committed Slither report markdowns</li>
+                <li>Reproducible static-analysis workflow against OpenZeppelin sources</li>
+              </ul>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Scope</h3>
+              <ul class="eng-list">
+                <li>Independent engineering/security study</li>
+                <li>Smart-contract-level static analysis of reference ERC-20 components</li>
+                <li>Not an institution-commissioned audit</li>
+                <li>Not certification of production security</li>
+              </ul>
+            </div>
+          </div>
+          <div class="case-actions" style="margin-top: 1.25rem;">
+            <a class="btn btn-primary btn-sm ext-link" href="https://github.com/dbonilla1988/ubs-dlt-risk-audit" target="_blank" rel="noopener noreferrer">Source →</a>
+            <a class="btn btn-secondary btn-sm ext-link" href="https://github.com/dbonilla1988/ubs-dlt-risk-audit/blob/main/erc20-slither-report.md" target="_blank" rel="noopener noreferrer">View Audit →</a>
+          </div>
+        </section>
+      </article>
+
+      <aside class="case-toc" aria-label="On this page">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#problem">Problem</a></li>
+          <li><a href="#role">My Role</a></li>
+          <li><a href="#scope">Scope</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#methodology">Methodology</a></li>
+          <li><a href="#static-analysis">Static Analysis</a></li>
+          <li><a href="#findings">Findings</a></li>
+          <li><a href="#testing">Testing</a></li>
+          <li><a href="#remediation">Remediation</a></li>
+          <li><a href="#institutional">DLT Risk Lens</a></li>
+          <li><a href="#limitations">Limitations</a></li>
+          <li><a href="#built">What I Did</a></li>
+          <li><a href="#technology">Technology</a></li>
+          <li><a href="#status">Status</a></li>
+        </ol>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> David Bonilla. All rights reserved.</p>
+      <a href="../../index.html">Home</a>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>

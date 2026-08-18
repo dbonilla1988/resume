@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Engineering case study: AMM DEX Aggregator — dual independent AMMs, reserve-based swap pricing, on-chain quote comparison, and React/Ethers.js wallet integration.">
+  <meta name="author" content="David Bonilla">
+  <meta name="theme-color" content="#07080c">
+  <title>AMM DEX Aggregator — Case Study | David Bonilla</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/case-study.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="logo" href="../../index.html" aria-label="David Bonilla — home">
+        <span class="logo-mark">DB</span>
+        <span class="logo-text">David Bonilla</span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="../../index.html#projects">Work</a>
+        <a href="../../index.html#experience">Experience</a>
+        <a href="../../index.html#stack">Stack</a>
+        <a href="../../index.html#contact" class="nav-cta">Contact</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="case-page">
+    <header class="case-hero">
+      <div class="container">
+        <a class="case-back" href="../../index.html#projects">← Back to Work</a>
+        <p class="case-kicker">Engineering Case Study</p>
+        <h1>AMM DEX Aggregator</h1>
+        <p class="case-role">DeFi Protocol Engineering</p>
+        <p class="case-lede">
+          A decentralized exchange aggregation project that compares swap pricing across two independent automated market makers and routes execution toward the better available quote.
+        </p>
+        <div class="case-meta-row">
+          <span class="status-chip status-chip--impl">Completed Engineering Project</span>
+          <span class="status-chip status-chip--impl">Public Source</span>
+          <span class="status-chip status-chip--impl">Sepolia Demo · Verified</span>
+          <span class="status-chip status-chip--impl">AMM Mechanics</span>
+        </div>
+        <div class="case-actions">
+          <a class="btn btn-primary btn-sm ext-link" href="https://ammdexaggregator.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo →</a>
+          <a class="btn btn-secondary btn-sm ext-link" href="https://github.com/dbonilla1988/AMMDEXAGGREGATOR" target="_blank" rel="noopener noreferrer">Source →</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container case-layout">
+      <article class="case-content">
+        <section class="case-section" id="overview">
+          <h2>Overview</h2>
+          <p>
+            This project implements two independent AMM contracts, ERC-20-style demo tokens (DAPP / USD), an on-chain Aggregator for quote comparison across those pools, and a React dApp that connects a wallet, reads quotes, and submits swaps and liquidity transactions through Ethers.js.
+          </p>
+          <p>
+            Aggregation here means <strong class="case-strong">single-hop comparison across two AMMs</strong> — not multi-hop routing, split routing, or a production DEX aggregator graph.
+          </p>
+
+          <figure class="product-evidence" id="amm-screenshot">
+            <div class="product-evidence__labels" aria-label="Evidence labels">
+              <span class="status-chip status-chip--impl">Real Product UI</span>
+              <span class="status-chip status-chip--impl">Public Demo</span>
+            </div>
+            <div class="product-evidence__frame">
+              <img
+                class="product-evidence__img"
+                src="../../img/projects/amm-dex-sepolia-swap.jpg"
+                alt="AMM DEX Aggregator interface showing Aggregator price comparison and Swap workflow"
+                width="960"
+                height="540"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <figcaption class="product-evidence__caption">
+              <strong>Swap + Aggregator interface</strong>
+              <span>Live UI showing AMM #1 / AMM #2 price comparison, token selection, and swap submission</span>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="case-section" id="problem">
+          <h2>Engineering Problem</h2>
+          <p>
+            Independent AMM pools can produce different swap outcomes for the same token pair because reserve balances and liquidity depth differ. Manually checking each pool is error-prone and slow.
+          </p>
+          <p>
+            The engineering goal is to query multiple liquidity sources, compare expected pricing, and direct a single-hop swap toward the better execution path — while keeping market logic on-chain and wallet interaction in the application layer.
+          </p>
+        </section>
+
+        <section class="case-section" id="role">
+          <h2>My Role</h2>
+          <p class="case-lead">DeFi Protocol Engineering · Full-Stack dApp</p>
+          <p>
+            I implemented and integrated the public project end-to-end: Solidity contracts (<code>Token</code>, <code>AMM</code>, <code>Aggregator</code>), Hardhat deployment configuration, React application surfaces for swap/deposit/withdraw, MetaMask wallet connection, and Ethers.js contract reads/writes.
+          </p>
+          <p class="eng-note">
+            This is an engineering demonstration project with public source and demo — not a claim of production DEX operations or production liquidity.
+          </p>
+        </section>
+
+        <section class="case-section" id="amm-mechanics">
+          <div class="section-label-row">
+            <h2>AMM Mechanics</h2>
+            <span class="status-chip status-chip--impl">Implemented</span>
+          </div>
+          <p>
+            Each <code>AMM</code> contract tracks token-pair <strong class="case-strong">reserves</strong> and prices swaps from the current reserve ratio:
+          </p>
+          <p>
+            <strong class="case-strong">amountOut = amountIn × reserveOut / reserveIn</strong>
+          </p>
+          <p>
+            This is simplified <strong class="case-strong">reserve-ratio pricing</strong> suitable for demonstrating liquidity-driven quote differences across independent pools. It is <em>not</em> a Uniswap-style invariant-preserving constant-product curve with <code>(reserveIn + amountIn)</code> in the denominator, and the contracts do not implement a swap fee.
+          </p>
+
+          <div class="arch-stack" aria-label="Reserve ratio pricing">
+            <div class="arch-layer">
+              <span class="arch-layer__label">Reserves</span>
+              <span class="arch-layer__body">Token A Reserve</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__body">Token B Reserve</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Price</span>
+              <span class="arch-layer__body">getPrice → (reserveA × 1e18) / reserveB</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Swap</span>
+              <span class="arch-layer__body">amountOut = amountIn × reserveOut / reserveIn · then update reserves</span>
+            </div>
+          </div>
+
+          <ul class="evidence-list">
+            <li>
+              <span class="evidence-list__item">Independent AMM1 and AMM2 contracts with shared Token pair support</span>
+              <span class="status-chip status-chip--impl">Implemented</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Reserve reads via getReserves / getPrice</span>
+              <span class="status-chip status-chip--impl">Implemented</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Swap fee curve / Uniswap v2 invariant pricing</span>
+              <span class="status-chip status-chip--arch">Not Supported</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="case-section case-section--emphasis" id="routing">
+          <div class="section-label-row">
+            <h2>Aggregation / Routing Logic</h2>
+            <span class="status-chip status-chip--impl">Implemented</span>
+          </div>
+          <p>
+            The <code>Aggregator</code> contract is constructed with exactly <strong class="case-strong">two</strong> AMM instances (<code>AMM1</code>, <code>AMM2</code>). <code>getPriceData</code> is a view call that queries each AMM’s <code>getPrice</code>, skips pools that revert (no liquidity), and returns the preferred (lower) price with the corresponding AMM name.
+          </p>
+          <p>
+            The Aggregator contract provides on-chain quote comparison across AMM1 and AMM2. The frontend uses the returned comparison to select the preferred pool, approves that AMM, and executes the swap directly against the selected AMM contract. Quote comparison therefore exists as an <strong class="case-strong">on-chain view</strong> (<code>getPriceData</code>) while live execution is a <strong class="case-strong">selected-AMM <code>swap</code></strong> after allowance approval — not <code>Aggregator.performSwap</code> as the verified frontend path.
+          </p>
+
+          <div class="arch-stack" aria-label="Aggregation routing flow">
+            <div class="arch-layer"><span class="arch-layer__body">User selects pair + amount</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Aggregator / UI queries AMM1 getPrice</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Aggregator / UI queries AMM2 getPrice</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Expected prices compared · best quote selected</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Wallet confirms · single-hop swap on selected AMM</span></div>
+          </div>
+
+          <ul class="evidence-list">
+            <li>
+              <span class="evidence-list__item">Two-AMM quote comparison</span>
+              <span class="status-chip status-chip--impl">Implemented</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Single-hop execution on one selected AMM</span>
+              <span class="status-chip status-chip--impl">Implemented</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Multi-hop routing · split routing · path graph optimization</span>
+              <span class="status-chip status-chip--arch">Not Supported</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="architecture">
+          <h2>Contract Architecture</h2>
+          <p>
+            Deployment wires demo tokens, two AMM pools, and one Aggregator that references both AMMs.
+          </p>
+
+          <div class="arch-stack" aria-label="Contract architecture">
+            <div class="arch-layer">
+              <span class="arch-layer__label">Application</span>
+              <span class="arch-layer__body">React dApp · MetaMask · Ethers.js</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Aggregator</span>
+              <span class="arch-layer__body">Aggregator.sol · getPriceData (quote comparison)</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer arch-layer--split">
+              <span class="arch-layer__label">Liquidity Sources</span>
+              <ul class="arch-layer__chips">
+                <li>AMM1 (AMM.sol)</li>
+                <li>AMM2 (AMM.sol)</li>
+              </ul>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer arch-layer--split">
+              <span class="arch-layer__label">Tokens</span>
+              <ul class="arch-layer__chips">
+                <li>Token.sol · DAPP</li>
+                <li>Token.sol · USD</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-section" id="swap-flow">
+          <h2>Swap Execution Flow</h2>
+          <p>
+            Read-only quote calls are separated from state-changing transactions.
+          </p>
+
+          <div class="arch-stack" aria-label="Swap transaction lifecycle">
+            <div class="arch-layer"><span class="arch-layer__body">Connect wallet (MetaMask)</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Read reserves / prices (view)</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Compare AMM1 vs AMM2 output pricing</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Approve input token allowance</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Submit swap transaction</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">Contract updates reserves · transfer tokens</span></div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer"><span class="arch-layer__body">UI refreshes balances / exchange rate</span></div>
+          </div>
+        </section>
+
+        <section class="case-section" id="liquidity">
+          <div class="section-label-row">
+            <h2>Liquidity / LP Logic</h2>
+            <span class="status-chip status-chip--beta">Implemented · Simplified</span>
+          </div>
+          <p>
+            <code>AMM.addLiquidity</code> and <code>AMM.removeLiquidity</code> transfer tokens and update shared reserve/liquidity mappings for a token pair. The dApp exposes Deposit and Withdraw tabs for these flows.
+          </p>
+          <p class="eng-note">
+            Liquidity accounting is simplified: the current contracts do not mint ERC-20 LP share tokens or implement production-grade per-provider share math. Treat this as an engineering demonstration of reserve updates, not a production LP system.
+          </p>
+        </section>
+
+        <section class="case-section" id="frontend">
+          <div class="section-label-row">
+            <h2>Frontend + Wallet Integration</h2>
+            <span class="status-chip status-chip--impl">Implemented</span>
+          </div>
+          <p>
+            The React application loads network-specific addresses from config (Hardhat <code>31337</code> and Sepolia <code>11155111</code>), connects MetaMask via Ethers.js, and uses contract ABIs for Token / AMM / Aggregator reads and writes. Core surfaces include Swap, Deposit, Withdraw, Charts, network selection, and wallet connect.
+          </p>
+          <ul class="signal-grid" aria-label="Frontend integration surfaces">
+            <li>React application</li>
+            <li>Ethers.js provider / signer</li>
+            <li>MetaMask connection</li>
+            <li>ABI-backed contract calls</li>
+            <li>Quote / price reads</li>
+            <li>Approve + swap transactions</li>
+            <li>Balance refresh after txs</li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="security">
+          <h2>Security &amp; Reliability</h2>
+          <p>
+            Supported contract-level checks include Solidity 0.8 arithmetic safety, token transfer/allowance validation, zero-address rejection on token transfer/approve paths, and require-guards when a pair has no liquidity.
+          </p>
+          <ul class="eng-list">
+            <li>Solidity ^0.8 checked arithmetic</li>
+            <li>ERC-20-style allowance + transferFrom for swaps/liquidity</li>
+            <li>No-liquidity require on swap / getPrice</li>
+            <li>Zero-address checks on Token transfer / approve</li>
+          </ul>
+          <p class="eng-note">
+            Slippage limits, deadlines, reentrancy guards, and swap fees are <strong class="case-strong">not</strong> implemented. This project demonstrates AMM and routing mechanics and should not be interpreted as a production-hardened DEX.
+          </p>
+        </section>
+
+        <section class="case-section" id="decisions">
+          <h2>Engineering Decisions</h2>
+          <dl class="decision-list">
+            <div class="decision-item">
+              <dt>Two independent AMM contracts</dt>
+              <dd>Separate reserve states create meaningful quote differences for the same token pair — the prerequisite for aggregation.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>Reserve-ratio swap pricing</dt>
+              <dd>Deterministic, easy-to-reason pricing from current reserves; chosen to demonstrate liquidity-driven execution differences rather than full Uniswap invariant mechanics.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>On-chain Aggregator quotes + selected-AMM execution</dt>
+              <dd>getPriceData centralizes comparison on-chain; the dApp then approves and swaps on the preferred AMM so user allowances and transfers align with the selected pool.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>Solidity + Hardhat</dt>
+              <dd>Core market logic and deployment tooling for local Hardhat and Sepolia-configured networks.</dd>
+            </div>
+            <div class="decision-item">
+              <dt>React + Ethers.js</dt>
+              <dd>Bridges wallet signing, quote reads, approvals, and state-changing transactions into a usable swap workflow.</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="case-section" id="built">
+          <h2>What I Personally Built</h2>
+          <ul class="evidence-list">
+            <li>
+              <span class="evidence-list__item">Token, AMM, and Aggregator Solidity contracts</span>
+              <span class="status-chip status-chip--impl">Smart Contracts · Implemented</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Two-AMM price comparison and single-hop selection logic</span>
+              <span class="status-chip status-chip--impl">Routing Logic · Implemented</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">React swap / deposit / withdraw application surfaces</span>
+              <span class="status-chip status-chip--impl">Frontend · Implemented</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">MetaMask connection, approvals, and Ethers.js contract calls</span>
+              <span class="status-chip status-chip--impl">Wallet Integration · Implemented</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Hardhat deploy scripts and network address config (local + Sepolia)</span>
+              <span class="status-chip status-chip--impl">Deployment · Implemented</span>
+            </li>
+            <li>
+              <span class="evidence-list__item">Hardhat test suite present in repo (interface drift vs current AMM API)</span>
+              <span class="status-chip status-chip--beta">Testing · Partial</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="technology">
+          <h2>Technology</h2>
+          <ul class="case-tech" aria-label="Verified project technologies">
+            <li>Solidity</li>
+            <li>Ethereum / EVM</li>
+            <li>Hardhat</li>
+            <li>Ethers.js</li>
+            <li>React</li>
+            <li>JavaScript</li>
+            <li>Node.js</li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="status">
+          <h2>Current Status</h2>
+          <p class="case-status">Completed Engineering Project · Public Source · Sepolia Demo · Verified</p>
+          <div class="domain-grid">
+            <div class="domain-block">
+              <h3 class="case-h3">Available</h3>
+              <ul class="eng-list">
+                <li>Public GitHub repository</li>
+                <li>Public Vercel demo (Sepolia)</li>
+                <li>Local Hardhat + Sepolia address configuration</li>
+                <li>Verified Sepolia quote comparison + selected-AMM swap</li>
+              </ul>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">Scope</h3>
+              <ul class="eng-list">
+                <li>Educational / engineering implementation</li>
+                <li>Two-AMM single-hop aggregation</li>
+                <li>Not a production DEX, mainnet deployment, or production users</li>
+              </ul>
+            </div>
+          </div>
+          <div class="case-actions" style="margin-top: 1.25rem;">
+            <a class="btn btn-primary btn-sm ext-link" href="https://ammdexaggregator.vercel.app/" target="_blank" rel="noopener noreferrer">Live Demo →</a>
+            <a class="btn btn-secondary btn-sm ext-link" href="https://github.com/dbonilla1988/AMMDEXAGGREGATOR" target="_blank" rel="noopener noreferrer">Source →</a>
+          </div>
+        </section>
+      </article>
+
+      <aside class="case-toc" aria-label="On this page">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#problem">Engineering Problem</a></li>
+          <li><a href="#role">My Role</a></li>
+          <li><a href="#amm-mechanics">AMM Mechanics</a></li>
+          <li><a href="#routing">Aggregation / Routing</a></li>
+          <li><a href="#architecture">Contract Architecture</a></li>
+          <li><a href="#swap-flow">Swap Execution</a></li>
+          <li><a href="#liquidity">Liquidity</a></li>
+          <li><a href="#frontend">Frontend + Wallet</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#decisions">Decisions</a></li>
+          <li><a href="#built">What I Built</a></li>
+          <li><a href="#technology">Technology</a></li>
+          <li><a href="#status">Status</a></li>
+        </ol>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> David Bonilla. All rights reserved.</p>
+      <a href="../../index.html">Home</a>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>
