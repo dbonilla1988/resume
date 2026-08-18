@@ -876,10 +876,18 @@ button {
 }
 
 .contact-email-note {
+  display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: var(--muted);
   letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: color var(--dur) var(--ease);
+}
+
+.contact-email-note:hover,
+.contact-email-note:focus-visible {
+  color: var(--accent);
 }
 
 .status-board {
