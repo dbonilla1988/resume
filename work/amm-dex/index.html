@@ -45,7 +45,7 @@
         <h1>AMM DEX Aggregator</h1>
         <p class="case-role">DeFi Protocol Engineering</p>
         <p class="case-lede">
-          A decentralized exchange aggregation project that compares swap pricing across two independent automated market makers and routes execution toward the better available quote.
+          A decentralized exchange aggregation project that compares swap pricing across two independent automated market makers and routes execution toward the Aggregator-selected quote.
         </p>
         <div class="case-meta-row">
           <span class="status-chip status-chip--impl">Completed Engineering Project</span>
@@ -100,7 +100,7 @@
             Independent AMM pools can produce different swap outcomes for the same token pair because reserve balances and liquidity depth differ. Manually checking each pool is error-prone and slow.
           </p>
           <p>
-            The engineering goal is to query multiple liquidity sources, compare expected pricing, and direct a single-hop swap toward the better execution path — while keeping market logic on-chain and wallet interaction in the application layer.
+            The engineering goal is to query multiple liquidity sources, compare expected pricing, and direct a single-hop swap toward the route selected by the comparison logic — while keeping market logic on-chain and wallet interaction in the application layer.
           </p>
         </section>
 
@@ -173,10 +173,10 @@
             <span class="status-chip status-chip--impl">Implemented</span>
           </div>
           <p>
-            The <code>Aggregator</code> contract is constructed with exactly <strong class="case-strong">two</strong> AMM instances (<code>AMM1</code>, <code>AMM2</code>). <code>getPriceData</code> is a view call that queries each AMM’s <code>getPrice</code>, skips pools that revert (no liquidity), and returns the preferred (lower) price with the corresponding AMM name.
+            The <code>Aggregator</code> contract is constructed with exactly <strong class="case-strong">two</strong> AMM instances (<code>AMM1</code>, <code>AMM2</code>). <code>getPriceData</code> is a view call that queries each AMM’s <code>getPrice</code>, skips pools that revert (no liquidity), and returns the selected lower-price comparison result with the corresponding AMM name.
           </p>
           <p>
-            The Aggregator contract provides on-chain quote comparison across AMM1 and AMM2. The frontend uses the returned comparison to select the preferred pool, approves that AMM, and executes the swap directly against the selected AMM contract. Quote comparison therefore exists as an <strong class="case-strong">on-chain view</strong> (<code>getPriceData</code>) while live execution is a <strong class="case-strong">selected-AMM <code>swap</code></strong> after allowance approval — not <code>Aggregator.performSwap</code> as the verified frontend path.
+            The Aggregator contract provides on-chain quote comparison across AMM1 and AMM2. The frontend uses the returned comparison to select that AMM, approves it, and executes the swap directly against the selected AMM contract. Quote comparison therefore exists as an <strong class="case-strong">on-chain view</strong> (<code>getPriceData</code>) while live execution is a <strong class="case-strong">selected-AMM <code>swap</code></strong> after allowance approval — not <code>Aggregator.performSwap</code> as the verified frontend path.
           </p>
 
           <div class="arch-stack" aria-label="Aggregation routing flow">
@@ -186,7 +186,7 @@
             <div class="arch-stack__connector" aria-hidden="true"></div>
             <div class="arch-layer"><span class="arch-layer__body">Aggregator / UI queries AMM2 getPrice</span></div>
             <div class="arch-stack__connector" aria-hidden="true"></div>
-            <div class="arch-layer"><span class="arch-layer__body">Expected prices compared · best quote selected</span></div>
+            <div class="arch-layer"><span class="arch-layer__body">Expected prices compared · selected quote chosen</span></div>
             <div class="arch-stack__connector" aria-hidden="true"></div>
             <div class="arch-layer"><span class="arch-layer__body">Wallet confirms · single-hop swap on selected AMM</span></div>
           </div>
@@ -326,7 +326,7 @@
             </div>
             <div class="decision-item">
               <dt>On-chain Aggregator quotes + selected-AMM execution</dt>
-              <dd>getPriceData centralizes comparison on-chain; the dApp then approves and swaps on the preferred AMM so user allowances and transfers align with the selected pool.</dd>
+              <dd>getPriceData centralizes comparison on-chain; the dApp then approves and swaps on the Aggregator-selected AMM so user allowances and transfers align with the selected pool.</dd>
             </div>
             <div class="decision-item">
               <dt>Solidity + Hardhat</dt>
