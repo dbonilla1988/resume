@@ -901,7 +901,8 @@ button {
   gap: 0.55rem 0.85rem;
 }
 
-.contact-copy-email {
+.contact-copy-email,
+.contact-gmail-link {
   appearance: none;
   border: 0;
   background: transparent;
@@ -917,7 +918,9 @@ button {
 }
 
 .contact-copy-email:hover,
-.contact-copy-email:focus-visible {
+.contact-copy-email:focus-visible,
+.contact-gmail-link:hover,
+.contact-gmail-link:focus-visible {
   color: var(--accent);
 }
 
