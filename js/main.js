@@ -49,6 +49,55 @@
     });
   });
 
+  const copyEmailBtn = document.querySelector("[data-copy-email]");
+  const copyStatus = document.querySelector("[data-copy-status]");
+  let copyResetTimer = 0;
+
+  const showCopied = () => {
+    if (!copyStatus) return;
+    copyStatus.hidden = false;
+    window.clearTimeout(copyResetTimer);
+    copyResetTimer = window.setTimeout(() => {
+      copyStatus.hidden = true;
+    }, 1800);
+  };
+
+  const copyEmail = async (value) => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+        return true;
+      }
+    } catch (_) {
+      /* fall through */
+    }
+
+    const field = document.createElement("textarea");
+    field.value = value;
+    field.setAttribute("readonly", "");
+    field.style.position = "fixed";
+    field.style.opacity = "0";
+    document.body.appendChild(field);
+    field.select();
+    let ok = false;
+    try {
+      ok = document.execCommand("copy");
+    } catch (_) {
+      ok = false;
+    }
+    field.remove();
+    return ok;
+  };
+
+  if (copyEmailBtn) {
+    copyEmailBtn.addEventListener("click", async () => {
+      const value = copyEmailBtn.getAttribute("data-copy-email");
+      if (!value) return;
+      const ok = await copyEmail(value);
+      if (ok) showCopied();
+    });
+  }
+
   const onScroll = () => {
     if (!header) return;
     const y = window.scrollY;

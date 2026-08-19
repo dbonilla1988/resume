@@ -893,6 +893,41 @@ button {
   color: var(--accent);
 }
 
+.contact-email-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem 0.85rem;
+}
+
+.contact-copy-email {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease);
+}
+
+.contact-copy-email:hover,
+.contact-copy-email:focus-visible {
+  color: var(--accent);
+}
+
+.contact-copy-status {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
 .status-board {
   padding: 1.15rem 1.25rem;
   border-radius: var(--radius-sm);
