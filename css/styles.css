@@ -822,6 +822,24 @@ button {
   box-shadow: 0 14px 32px rgba(107, 140, 255, 0.28);
 }
 
+/* Primary CTAs that also use .ext-link must keep dark label text.
+   Plain .ext-link sets accent blue, which fails contrast on the blue fill. */
+a.btn.btn-primary.ext-link,
+.btn.btn-primary.ext-link {
+  color: #071018;
+  text-decoration: none;
+}
+
+a.btn.btn-primary.ext-link:hover,
+a.btn.btn-primary.ext-link:focus-visible,
+a.btn.btn-primary.ext-link:active,
+.btn.btn-primary.ext-link:hover,
+.btn.btn-primary.ext-link:focus-visible,
+.btn.btn-primary.ext-link:active {
+  color: #071018;
+  text-decoration: none;
+}
+
 .btn-secondary {
   border: 1px solid var(--border-strong);
   background: transparent;
