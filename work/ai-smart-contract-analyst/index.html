@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Engineering case study for a deterministic-first Solidity security analyzer with grounded AI-assisted explanations.">
+  <meta name="author" content="David Bonilla">
+  <meta name="theme-color" content="#070809">
+  <title>AI Smart Contract Analyst | David Bonilla</title>
+  <link rel="canonical" href="https://davidbonilla.dev/work/ai-smart-contract-analyst/">
+
+  <meta property="og:title" content="AI Smart Contract Analyst | David Bonilla">
+  <meta property="og:description" content="Engineering case study for a deterministic-first Solidity security analyzer with grounded AI-assisted explanations.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://davidbonilla.dev/work/ai-smart-contract-analyst/">
+  <meta property="og:image" content="https://davidbonilla.dev/img/profile.jpg">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AI Smart Contract Analyst | David Bonilla">
+  <meta name="twitter:description" content="Engineering case study for a deterministic-first Solidity security analyzer with grounded AI-assisted explanations.">
+  <meta name="twitter:image" content="https://davidbonilla.dev/img/profile.jpg">
+
+  <link rel="icon" href="../../favicon.ico" sizes="any">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../../favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/case-study.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="logo" href="../../index.html" aria-label="David Bonilla — home">
+        <span class="logo-mark">DB</span>
+        <span class="logo-text">David Bonilla</span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <a href="../../index.html#projects">Work</a>
+        <a href="../../index.html#experience">Experience</a>
+        <a href="../../index.html#stack">Stack</a>
+        <a href="../../index.html#contact" class="nav-cta">Contact</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="case-page">
+    <header class="case-hero">
+      <div class="container">
+        <a class="case-back" href="../../index.html#projects">← Back to Work</a>
+        <p class="case-kicker">Engineering Case Study</p>
+        <h1>AI Smart Contract Analyst</h1>
+        <p class="case-role">Blockchain Security · AI Infrastructure</p>
+        <p class="case-lede">
+          Deterministic-first Solidity analysis with grounded AI-assisted security explanations.
+        </p>
+        <div class="case-meta-row">
+          <span class="status-chip status-chip--impl">Live Tool</span>
+          <span class="status-chip status-chip--impl">Public Source</span>
+          <span class="status-chip status-chip--impl">Deterministic-First</span>
+          <span class="status-chip status-chip--impl">AI Grounding</span>
+        </div>
+        <div class="case-actions">
+          <a class="btn btn-primary btn-sm ext-link" href="https://analyzer.davidbonilla.dev" target="_blank" rel="noopener noreferrer">Launch Analyzer →</a>
+          <a class="btn btn-secondary btn-sm ext-link" href="https://github.com/dbonilla1988/ai-smart-contract-analyst" target="_blank" rel="noopener noreferrer">Source →</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container case-layout">
+      <article class="case-content">
+        <section class="case-section" id="problem">
+          <h2>Engineering Problem</h2>
+          <p>
+            LLMs can explain Solidity well, but asking an LLM to directly “audit this contract” can produce unsupported findings, inconsistent severity, and hallucinated vulnerabilities.
+          </p>
+          <p>
+            The engineering goal was to separate <strong class="case-strong">security detection</strong> from <strong class="case-strong">AI interpretation</strong>.
+          </p>
+          <p>
+            The deterministic analysis layer owns findings and severity. AI receives only normalized findings and bounded evidence and is used to explain those findings — not invent new ones.
+          </p>
+        </section>
+
+        <section class="case-section" id="architecture">
+          <h2>Architecture</h2>
+          <p>
+            Analysis is a staged pipeline. Detector output is authoritative; the AI layer is optional and downstream.
+          </p>
+          <div class="arch-stack" aria-label="Analysis pipeline">
+            <div class="arch-layer">
+              <span class="arch-layer__label">Input</span>
+              <span class="arch-layer__body">Solidity Source</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Parse</span>
+              <span class="arch-layer__body">Parser / AST</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Extract</span>
+              <span class="arch-layer__body">Structural Extraction</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Detect</span>
+              <span class="arch-layer__body">Deterministic + Heuristic Detectors</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Normalize</span>
+              <span class="arch-layer__body">Normalized Security Findings + Bounded Evidence</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Explain</span>
+              <span class="arch-layer__body">Optional Grounded AI Explanation</span>
+            </div>
+            <div class="arch-stack__connector" aria-hidden="true"></div>
+            <div class="arch-layer">
+              <span class="arch-layer__label">Output</span>
+              <span class="arch-layer__body">Analysis Report</span>
+            </div>
+          </div>
+          <p class="eng-note">
+            AI cannot create findings or change detector severity. If the AI provider fails, the deterministic report still returns.
+          </p>
+        </section>
+
+        <section class="case-section" id="detectors">
+          <h2>Deterministic Analysis</h2>
+          <p>
+            V1 security detectors are heuristic/static pattern checks over parsed Solidity structure and source evidence:
+          </p>
+          <ul class="eng-list">
+            <li><code>tx-origin</code> — <code>tx.origin</code> authorization patterns</li>
+            <li><code>selfdestruct</code> — <code>selfdestruct</code> / <code>suicide</code> usage</li>
+            <li><code>delegatecall</code> — <code>delegatecall</code> usage</li>
+            <li><code>low-level-call</code> — low-level <code>call</code> / <code>staticcall</code> / <code>callcode</code></li>
+            <li><code>privileged-function</code> — privileged / admin function surfaces</li>
+            <li><code>floating-pragma</code> — floating Solidity pragma</li>
+            <li><code>unrestricted-mint-admin</code> — unrestricted mint / admin heuristics</li>
+            <li><code>unchecked-external-call</code> — unchecked external-call return handling</li>
+          </ul>
+          <p>
+            Separately, ERC-20 / ERC-721-like <strong class="case-strong">token interface indicators</strong> are reported in their own list. They are not security findings and do not contribute to severity counts.
+          </p>
+        </section>
+
+        <section class="case-section" id="findings">
+          <h2>Normalized Finding Model</h2>
+          <p>
+            Findings are structured objects rather than free-form model text. Typical fields include:
+          </p>
+          <ul class="eng-list">
+            <li>detector ID</li>
+            <li>severity</li>
+            <li>confidence</li>
+            <li>category</li>
+            <li>title / description</li>
+            <li>remediation</li>
+            <li>evidence / source span</li>
+            <li>affected symbols</li>
+          </ul>
+          <p>
+            Keeping findings normalized means additional analysis engines (for example a future Slither worker) can emit into the same reporting layer without redesigning the UI or AI grounding contract.
+          </p>
+        </section>
+
+        <section class="case-section" id="ai">
+          <h2>Grounded AI Layer</h2>
+          <p>
+            When AI interpretation is enabled and a server-side provider key is configured:
+          </p>
+          <ul class="eng-list">
+            <li>Full Solidity source is <strong class="case-strong">not</strong> sent to the AI provider</li>
+            <li>AI receives normalized findings and bounded evidence snippets</li>
+            <li>AI must cite existing finding IDs</li>
+            <li>Unknown finding IDs are rejected / sanitized</li>
+            <li>AI cannot modify deterministic severity</li>
+            <li>Deterministic analysis continues if AI fails or is unavailable</li>
+          </ul>
+          <p class="eng-note">
+            Grounding reduces unsupported invention relative to “audit this source” prompts. It does not make hallucination impossible.
+          </p>
+        </section>
+
+        <section class="case-section" id="hardening">
+          <h2>Security / Hardening</h2>
+          <ul class="eng-list">
+            <li>500 KB input limit</li>
+            <li>Plain-text Solidity only</li>
+            <li>No Solidity execution in V1</li>
+            <li>No shell / <code>solc</code> execution in V1</li>
+            <li>Server-side API keys only (never <code>NEXT_PUBLIC_</code>)</li>
+            <li>Bounded AI payload</li>
+            <li>In-memory rate limiting (stricter for AI-enabled requests)</li>
+            <li>Security headers / CSP (production omits <code>unsafe-eval</code>)</li>
+            <li>No full-source logging — privacy-safe request metadata only</li>
+            <li>Safe AI failure behavior (deterministic report still returned)</li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="example">
+          <h2>Example Analysis</h2>
+          <p>
+            The default demo contract (<code>ExampleVault</code>) intentionally contains security issues for demonstration:
+          </p>
+          <div class="domain-grid">
+            <div class="domain-block">
+              <h3 class="case-h3">HIGH</h3>
+              <p>Unrestricted mint-style function (<code>unrestricted-mint-admin</code>)</p>
+            </div>
+            <div class="domain-block">
+              <h3 class="case-h3">MEDIUM</h3>
+              <p><code>tx.origin</code> authorization (<code>tx-origin</code>)</p>
+            </div>
+          </div>
+          <p>
+            The analyzer recognizes <code>tx.origin</code> as an authorization-related guard for the purpose of suppressing an “unrestricted withdraw” false positive, while independently flagging <code>tx.origin</code> as insecure.
+          </p>
+          <p class="eng-note">
+            Design principle: <strong class="case-strong">guard presence does not imply guard safety.</strong>
+          </p>
+        </section>
+
+        <section class="case-section" id="stack">
+          <h2>Engineering Stack</h2>
+          <ul class="case-tech" aria-label="Project technologies">
+            <li>TypeScript</li>
+            <li>Next.js</li>
+            <li>Solidity AST Parsing</li>
+            <li>Zod</li>
+            <li>Node.js</li>
+            <li>OpenAI API</li>
+            <li>pnpm workspaces</li>
+            <li>Vercel</li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="testing">
+          <h2>Testing</h2>
+          <p>
+            At the end of Phase 4 / pre-deployment validation, the suite reported <strong class="case-strong">82 tests passing</strong>, covering:
+          </p>
+          <ul class="eng-list">
+            <li>Parser / structural extraction</li>
+            <li>Security detectors</li>
+            <li>Token-interface indicators</li>
+            <li>AI grounding / citation sanitization</li>
+            <li>API hardening helpers</li>
+            <li>Regression fixtures (including ExampleVault)</li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="limitations">
+          <h2>Limitations / Next Steps</h2>
+          <p>Current limitations:</p>
+          <ul class="eng-list">
+            <li>Heuristic / static analysis — not a professional security audit</li>
+            <li>No full dataflow analysis</li>
+            <li>No formal verification</li>
+            <li>No runtime / EVM simulation</li>
+            <li>No Slither integration yet</li>
+            <li>No verified-source / address analysis yet</li>
+            <li>In-memory rate limits are per-instance on serverless</li>
+          </ul>
+          <p>Possible future architecture (not implemented):</p>
+          <ul class="eng-list">
+            <li>Slither worker emitting into the same finding model</li>
+            <li>Verified contract / address analysis</li>
+            <li>Proxy detection</li>
+            <li>Deeper call / dataflow analysis</li>
+          </ul>
+        </section>
+
+        <section class="case-section" id="status">
+          <h2>Launch</h2>
+          <p class="case-status">Live Tool · Public Source · Deterministic-First · Optional AI</p>
+          <div class="case-actions" style="margin-top: 1.25rem;">
+            <a class="btn btn-primary btn-sm ext-link" href="https://analyzer.davidbonilla.dev" target="_blank" rel="noopener noreferrer">Launch Analyzer →</a>
+            <a class="btn btn-secondary btn-sm ext-link" href="https://github.com/dbonilla1988/ai-smart-contract-analyst" target="_blank" rel="noopener noreferrer">View Source →</a>
+          </div>
+        </section>
+      </article>
+
+      <aside class="case-toc" aria-label="On this page">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#problem">Engineering Problem</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#detectors">Deterministic Analysis</a></li>
+          <li><a href="#findings">Finding Model</a></li>
+          <li><a href="#ai">Grounded AI</a></li>
+          <li><a href="#hardening">Hardening</a></li>
+          <li><a href="#example">Example Analysis</a></li>
+          <li><a href="#stack">Engineering Stack</a></li>
+          <li><a href="#testing">Testing</a></li>
+          <li><a href="#limitations">Limitations</a></li>
+          <li><a href="#status">Launch</a></li>
+        </ol>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> David Bonilla. All rights reserved.</p>
+      <a href="../../index.html">Home</a>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>
